@@ -17,13 +17,13 @@ from utils.utils import preprocess_raw, invert_affine, postprocess
 
 
 class Model():
-    def __init__(self, force_input_size=512, threshold=0.2, iou_threshold=0.2):
+    def __init__(self, compound_coef=0, force_input_size=512, threshold=0.2, iou_threshold=0.2):
+        self.compound_coef = compound_coef
         self.force_input_size = force_input_size  # set None to use default size
 
         self.threshold = threshold
         self.iou_threshold = iou_threshold
 
-        self.compound_coef = 0
         self.use_cuda = True
         self.use_float16 = False
         cudnn.fastest = True

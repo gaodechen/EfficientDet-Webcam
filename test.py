@@ -13,7 +13,7 @@ if __name__ == "__main__":
     dst_dir = './test_images/output/'
     ext_name = 'jpg'
 
-    model = Model()
+    model = Model(compound_coef=2, threshold=0.1, iou_threshold=0.1)
     for file in tqdm(os.listdir(src_dir)):
         if file.endswith('jpg'):
             filename = file.split('.')[0]
