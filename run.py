@@ -90,6 +90,7 @@ def display_single_window(cam_addrs, window_name='camera',  img_shape=(512, 512)
     [process.join() for process in processes]
 
 
+'''
 def test_single_image():
     m = Model()
     addr = 'rtmp://58.200.131.2:1935/livetv/dftv'
@@ -99,10 +100,10 @@ def test_single_image():
     cv2.resize(pred_img, (512, 512))
     cv2.imshow('img', pred_img)
     cv2.waitKey(0)
+'''
 
 
 if __name__ == '__main__':
-    test_single_image()
     mp.set_start_method(method='spawn')
 
     parser = ArgumentParser()

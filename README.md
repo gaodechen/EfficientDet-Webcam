@@ -8,27 +8,30 @@
 
 Same usage as [gaodechen/webcam_yolov3_jetson_tx_hikvision](https://github.com/gaodechen/webcam_yolov3_jetson_tx_hikvision).
 
-## 多网络摄像头拉流 + EfficientDet对象检测
+## Multiple Webcams Streaming & Object Detection
 
-- `model.py`是对`Yet-Another-EfficientDeg-Pytorch`模型推断的二次封装
-- `settings.py`当中修改IP camera地址列表，画面大小
+- `model.py`: post-packaging for `Yet-Another-EfficientDet-Pytorch`, no need to change
+- `settings.py`: IP list & image shape could be modified here, view the  [zylo117/Yet-Another-EfficientDet-Pytorch](https://github.com/zylo117/Yet-Another-EfficientDet-Pytorch) repo for other configurations
 
-运行：
+Running:
 
 ```
 python run.py --single_window=True (or False) --num_cameras=4
 ```
 
-使用`single_window`则所有画面合并显示到同一个窗口当中，`num_cameras`是使用IP camera个数。
+`single_window`: argument used when multiple images should be merged and displayed into one single window.
 
-### 仅多摄像头拉流
+`num_cameras`: number of cameras to be processed.
 
-去掉`predict()`进程的调用，并且`pop_image()`显示`raw_q`中的原图像。
+### Streaming Only
+
+Delete model processing part in predict() as below.
 
 ```python
-processes = [
-    mp.Process(target=push_image, args=(raw_q, cam_addr)),
-    # display images in raw_q instead
-    mp.Process(target=pop_image, args=(raw_q, window_name)),
-]
+def predict(raw_q, pred_q):
+    # model = Model()
+    while True:
+        raw_img = raw_q.get()
+        # pred_img = model.run(raw_img)
+        pred_q.put(raw_img)
 ```
