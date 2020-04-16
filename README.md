@@ -35,3 +35,21 @@ def predict(raw_q, pred_q):
         # pred_img = model.run(raw_img)
         pred_q.put(raw_img)
 ```
+
+## Preparation
+
+### PyTorch 1.4 Installation
+
+No need to compile from scratch, installation package of PyTorch for ARM is available.
+
+- **Download .whl package here:** [PyTorch for Jetson Nano - version 1.4.0 now available](https://forums.developer.nvidia.com/t/pytorch-for-jetson-nano-version-1-4-0-now-available/72048)
+
+### torchvision 0.5.0 Installation
+
+Here you need to clone torchvision sources and compile. git clone may take a while so I add the `--depth` argument to download the latest commit only.
+
+``` bash
+$ git clone --branch v0.5.0 https://github.com/pytorch/vision torchvision --depth=1
+$ cd torchvision
+$ sudo python setup.py install
+```
